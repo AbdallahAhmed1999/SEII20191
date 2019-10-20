@@ -19,5 +19,10 @@ public class MscDegree implements Degree{
     public Content getContent() {
         return new MscContent();
     }
+
+    @Override
+    public Teacher getTeacher() {
+        return new MscTeacher();
+    }
     
 }

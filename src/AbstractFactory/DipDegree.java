@@ -9,21 +9,21 @@ package AbstractFactory;
  *
  * @author aashgar
  */
-public class BscDegree implements Degree{
+public class DipDegree implements Degree{
 
     @Override
     public Title getTitle() {
-        return new BscTitle();
+        return new DipTitle();
     }
 
     @Override
     public Content getContent() {
-        return new BscContent();
+        return new DipContent();
     }
 
     @Override
     public Teacher getTeacher() {
-        return new BscTeacher();
+        return new DipTeacher();
     }
     
 }

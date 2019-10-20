@@ -9,8 +9,11 @@ package AbstractFactory;
  *
  * @author aashgar
  */
-public interface Degree {
-  public Title getTitle();
-  public Content getContent();
-  public Teacher getTeacher();
+public class MscTeacher implements Teacher{
+
+    @Override
+    public void view(String hData) {
+        System.out.println(("Msc Course Teacher: "+hData).toUpperCase());
+    }
+    
 }

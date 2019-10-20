@@ -9,8 +9,10 @@ package AbstractFactory;
  *
  * @author aashgar
  */
-public interface Degree {
-  public Title getTitle();
-  public Content getContent();
-  public Teacher getTeacher();
+public class DipContent implements Content{
+    @Override
+    public void view(String cData) {
+        System.out.println("Dip course content: "+cData);
+    }
+    
 }

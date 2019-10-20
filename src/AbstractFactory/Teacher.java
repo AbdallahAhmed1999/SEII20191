@@ -9,8 +9,7 @@ package AbstractFactory;
  *
  * @author aashgar
  */
-public interface Degree {
-  public Title getTitle();
-  public Content getContent();
-  public Teacher getTeacher();
+public interface Teacher {
+    public void view(String hData);
+    
 }

@@ -12,6 +12,7 @@ package AbstractFactory;
 public class Course {
     private Title aTitle;
     private Content aContent;
+    private Teacher aTeacher;
     private Degree aDegree;
     private static  Course aCourse;
 
@@ -27,12 +28,15 @@ public class Course {
     public void setaDegree(Degree aDegree) {
         this.aDegree = aDegree;
     }
-    public void view(String tData, String cData){
+    public void view(String tData, String cData, String hData){
         this.aTitle = this.aDegree.getTitle();
         this.aContent = this.aDegree.getContent();
+        this.aTeacher = this.aDegree.getTeacher();
         System.out.println("View Course Data ...");
         this.aTitle.view(tData);
         this.aContent.view(cData);
+        this.aTeacher.view(hData);
+        System.out.println("======================================");
         
     }
     

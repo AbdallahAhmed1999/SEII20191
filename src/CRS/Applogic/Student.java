@@ -10,9 +10,9 @@ package CRS.Applogic;
  * @author aashgar
  */
 public class Student {
-   private String name;
-   private String major;
-   private double grade;
+    private String name;
+    private String major;
+    private double grade;
 
     public String getName() {
         return name;
@@ -37,5 +37,5 @@ public class Student {
     public void setGrade(double grade) {
         this.grade = grade;
     }
-   
+    
 }

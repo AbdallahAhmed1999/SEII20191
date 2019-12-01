@@ -8,8 +8,6 @@ package CRS.Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,15 +23,14 @@ public class DbConnection {
 
     public static DbConnection getaDbConnection() {
         if(aDbConnection == null)
-            aDbConnection= new DbConnection();
+            aDbConnection = new DbConnection();
         return aDbConnection;
     }
     public Statement getStatement() throws Exception{
-            Class.forName("com.mysql.jdbc.Driver");
-            aConnection = DriverManager.
-                    getConnection("jdbc:mysql://localhost:3306/university","root","root");
-            this.aStatement = aConnection.createStatement();
-       return this.aStatement;
+        Class.forName("com.mysql.jdbc.Driver");
+        this.aConnection = DriverManager.
+            getConnection("jdbc:mysql://localhost:3306/university","root","root");
+        return this.aConnection.createStatement();
+        
     }
-    
 }

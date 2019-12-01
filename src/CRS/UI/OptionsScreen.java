@@ -5,6 +5,8 @@
  */
 package CRS.UI;
 
+import CRS.*;
+
 /**
  *
  * @author aashgar
@@ -34,11 +36,6 @@ public class OptionsScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonAddStudent.setText("Add Student");
-        jButtonAddStudent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddStudentActionPerformed(evt);
-            }
-        });
 
         jButtonViewReport.setText("View Report");
 
@@ -66,12 +63,6 @@ public class OptionsScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddStudentActionPerformed
-        // TODO add your handling code here:
-        StudentEntryScreen aStudentEntryScreen = new StudentEntryScreen();
-        aStudentEntryScreen.setVisible(true);
-    }//GEN-LAST:event_jButtonAddStudentActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -97,6 +88,7 @@ public class OptionsScreen extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(OptionsScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

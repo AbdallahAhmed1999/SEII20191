@@ -7,6 +7,8 @@ package CRS.UI;
 
 import CRS.Applogic.Grading;
 import CRS.Applogic.Student;
+import CRS.Applogic.StudentModel;
+import CRS.Database.DbFacade;
 import CRS.Database.DbStudent;
 
 /**
@@ -14,13 +16,16 @@ import CRS.Database.DbStudent;
  * @author aashgar
  */
 public class StudentEntryScreen extends javax.swing.JFrame {
-
+    private StudentModel aStudentModel;
     /**
      * Creates new form StudentEntryScreen
      */
     public StudentEntryScreen() {
+        this.aStudentModel = new StudentModel();
         initComponents();
         setLocationRelativeTo(this);
+        this.aStudentModel.addObserver(studentsView1);
+        this.studentsView1.setaStudentModel(aStudentModel);
     }
 
     /**
@@ -44,6 +49,8 @@ public class StudentEntryScreen extends javax.swing.JFrame {
         jTextFieldFinal = new javax.swing.JTextField();
         jButtonSave = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
+        studentsView1 = new CRS.UI.StudentsView();
+        jButtonUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +75,13 @@ public class StudentEntryScreen extends javax.swing.JFrame {
 
         jButtonCancel.setText("Cancel");
 
+        jButtonUpdate.setText("Update");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,24 +98,30 @@ public class StudentEntryScreen extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jComboBoxMajor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonCancel))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldMid, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldMid, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldLab, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextFieldLab, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButtonUpdate))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel5)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextFieldFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButtonCancel)))
+                            .addComponent(studentsView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,8 +146,11 @@ public class StudentEntryScreen extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancel)
-                    .addComponent(jButtonSave))
-                .addContainerGap(137, Short.MAX_VALUE))
+                    .addComponent(jButtonSave)
+                    .addComponent(jButtonUpdate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(studentsView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,8 +161,8 @@ public class StudentEntryScreen extends javax.swing.JFrame {
         String name=jTextFieldName.getText();
         String major = jComboBoxMajor.getSelectedItem().toString();
         double mid = Double.parseDouble(jTextFieldMid.getText());
-        double lab = Double.parseDouble(jTextFieldLab.getText());
-        double fin = Double.parseDouble(jTextFieldFinal.getText());
+        double lab= Double.parseDouble(jTextFieldLab.getText());
+        double fin= Double.parseDouble(jTextFieldFinal.getText());
         Grading aGrading = new Grading(major);
         double grade = aGrading.compGrade(mid, lab, fin);
         Student aStudent = new Student();
@@ -153,6 +176,12 @@ public class StudentEntryScreen extends javax.swing.JFrame {
         jTextFieldLab.setText("");
         jTextFieldLab.setText("");
     }//GEN-LAST:event_jButtonSaveActionPerformed
+
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+        // TODO add your handling code here:
+        DbFacade aDbFacade = DbFacade.getaDbFacade();
+        this.aStudentModel.setStudents(aDbFacade.getStudents());
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,6 +222,7 @@ public class StudentEntryScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonSave;
+    private javax.swing.JButton jButtonUpdate;
     private javax.swing.JComboBox jComboBoxMajor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -203,5 +233,6 @@ public class StudentEntryScreen extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldLab;
     private javax.swing.JTextField jTextFieldMid;
     private javax.swing.JTextField jTextFieldName;
+    private CRS.UI.StudentsView studentsView1;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,7 +12,7 @@ import CRS.Database.DbUser;
  * @author aashgar
  */
 public class LoginScreen extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form LoginScreen
      */
@@ -22,9 +22,9 @@ public class LoginScreen extends javax.swing.JFrame {
     }
     private boolean verifyUser(String userName, String password){
         DbUser aDbUser = new DbUser();
-        if(aDbUser.verifyUser(userName, password))
-            return true;
-        else return false;
+       if(aDbUser.verifyUser(userName, password))
+           return true;
+       else return false;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,18 +120,17 @@ public class LoginScreen extends javax.swing.JFrame {
         String userName = jTextFieldUserName.getText();
         String password = String.valueOf(jPasswordField.getPassword());
         if(userName.equals("") || password.equals(""))
-            jLabelError.setText("You must enter all valuses");
+            jLabelError.setText("You must enter all fields");
         else if(verifyUser(userName, password)){
-            OptionsScreen anOptionsScreen= new OptionsScreen();
+            OptionsScreen anOptionsScreen = new OptionsScreen();
             anOptionsScreen.setVisible(true);
             setVisible(false);
         }
-        else{
-            jLabelError.setText("Invalid user name or password");
+        else {
+            jLabelError.setText("Invalid User name and Password");
             jTextFieldUserName.setText("");
             jPasswordField.setText("");
         }
-       
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**

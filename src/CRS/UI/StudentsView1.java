@@ -16,18 +16,18 @@ import javax.swing.DefaultListModel;
  *
  * @author aashgar
  */
-public class StudentsView extends javax.swing.JPanel 
+public class StudentsView1 extends javax.swing.JPanel 
     implements Observer{
     private StudentModel aStudentModel;
 
-    public void setaStudentModel(StudentModel aStudentModel) {
+    public void setStudentModel(StudentModel aStudentModel) {
         this.aStudentModel = aStudentModel;
     }
 
     /**
      * Creates new form StudentsView
      */
-    public StudentsView() {
+    public StudentsView1() {
         initComponents();
     }
 
@@ -54,11 +54,11 @@ public class StudentsView extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
